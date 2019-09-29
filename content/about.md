@@ -6,4 +6,6 @@ slug: "about"
 type: "page"
 ---
 
-asdasd
+## Here be dragons
+
+{{< figure src="https://images.unsplash.com/photo-1550406307-84b491d68ba7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80" title="Viktor Forgacs" >}}
