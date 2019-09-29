@@ -5,7 +5,7 @@ title: "Websockets con RxJS"
 slug: "2019/09/27/websockets-con-rxjs" 
 tags: ["rxjs", "websocket", "socketio", "reactive programming"]
 categories: []
-description: "Manipulando un stream de eventos."
+description: "Manipulando un stream de eventos"
 ---
 
 La programación reactiva es una herramienta muy poderosa si tienes la paciencia para configurar correctamente los observables. 
