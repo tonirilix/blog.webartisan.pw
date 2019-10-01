@@ -271,10 +271,18 @@ Si ejecutamos ```git status``` deberíamos ver algo como esto:
 
 ![git status](https://s3.amazonaws.com/blog.webartisan/20190927blog-oficial-webartisan/06-git-status.png)
 
+Ahora necesitamos agregar todos archivos nuevos al stage de git, pero debemos tener cuidado ya que el tema está agregado como un repositorio dentro de nuestro repositorio y, si lo subimos de esa forma now.sh no va a saber qué hacer con ese submódulo (de hecho cualquiera que descargue el proyecto).
+Entonces agreguemos primero la carpeta de themes de la siguiente forma para que git sepa que deseamos agregarla como directorio:
+
+```
+git add themes/
+```
+Una vez hecho esto agreguemos el resto de los archivos con:
 ```
 git add .
 ```
 
+Si por alguna razón no agregaste los temas como en el paso indicado, el warning que te arroja la consola te indica como remover themes nuevamente.
 ```
 warning: adding embedded git repository: themes/ezhil
 hint: You've added another git repository inside your current repository.
@@ -292,15 +300,27 @@ hint:
 hint: See "git help submodule" for more information.
 ```
 
+Ahora creamos el commit de los archivos a actualizar en nuestro repo:
 ```bash
 git commit -m "Initial blog files"
 ```
+![commited files](https://s3.amazonaws.com/blog.webartisan/20190927blog-oficial-webartisan/07-git-commit.png)
 
+Y subimos el commit al repositorio remoto:
 ```bash
 git push
 ```
 
+Y si todo salió bien, nuestros archivos ya deberían estar en el repositorio remoto:
+![remote repo](https://s3.amazonaws.com/blog.webartisan/20190927blog-oficial-webartisan/08-files-in-repo.png)
 
+## Configurando now.sh para escuchar nuestro repositorio
+Primero deberás crear una cuenta en [now.sh](https://zeit.co/signup). Te recomiendo que te conectes vía github para que sea más fácil conectarnos con nuestro repositorio. Una vez que crees tu cuenta, continua con los siguientes pasos:
+
+## Paso 1: Crea un nuevo proyecto, elige Github como fuente.
+![new project](https://s3.amazonaws.com/blog.webartisan/20190927blog-oficial-webartisan/09-now-sh.png)
+
+Selecc
 ```bash
 Installing build runtime...
 Build runtime installed: 668.375ms
@@ -318,12 +338,17 @@ $ curl -L -O https://github.com/gohugoio/hugo/releases/download/v0.58.3/hugo_0.5
     % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   
 Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-  0     0    0     0    0 
-    0      0      0 --:--:-- --:--:-- --:--:--     0100   620    0   620    0     0   3147      0 --:--:-- --:--:-- --:--:--  3147
- 32 11.1M   32 3641k    0     0  3353k      0  0:00:03  0:00:01  0:00
+
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+
+  0     0    0     0    0 
+    0      0      0 --:--:-- --:--:-- --:--:--     0
+100   620    0   620    0     0   3147      0 --:--:-- --:--:-- --:--:--  3147
+
+ 32 11.1M   32 3641k    0     0  3353k      0  0:00:03  0:00:01  0:00
 :02 3353k
-100 11.1M  100 11.1M 
+
+100 11.1M  100 11.1M 
    0     0  7756k      0  0:00:01  0:00:01 --:--:-- 19.8M
 Done in 1.79s.
 Running "yarn run build"
