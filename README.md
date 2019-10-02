@@ -1,4 +1,4 @@
-# [Webartisan](http://youtube.com/c/WEBArtisan)'s Youtube  Blog
+# [Webartisan](http://youtube.com/c/WEBArtisan)'s Youtube channel Blog
 
 The blog uses [Hugo](https://gohugo.io/). For installation instructions follow [this guide](https://gohugo.io/getting-started/quick-start/).
 

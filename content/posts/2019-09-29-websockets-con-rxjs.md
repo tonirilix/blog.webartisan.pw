@@ -7,12 +7,13 @@ tags: ["hugo", "golang", "blog"]
 categories: []
 description: "Cómo se creó este blog usando https://gohugo.io/"
 ---
-
 Después del vídeo de [Preguntas y Respuestas 2.0](https://www.youtube.com/watch?v=_6_4zdzjvOc) noté que hacía falta un lugar en donde centralizar todas las preguntas y respuestas realizadas en el canal. Muchas de las preguntas se realizan más de una vez y, en más de una ocasión, ya han sido respondidas anteriormente.
+
+## Este post es una explicaión del siguiente vídeo:
+[![hugo](https://i9.ytimg.com/vi/LSG8Bt4jBHA/hqdefault.jpg?time=1570042935266&sqp=CLDn0-wF&rs=AOn4CLDwAE-5-N-u9kF7e6H_5owYC8YNLA)](https://www.youtube.com/watch?v=LSG8Bt4jBHA "Creando un blog en menos de 5 minutos con hugo")
 
 ## Principales herramientas
 Comparé las principales herramientas para crear contenido estático y al final consideré únicamente dos de ellas:
-
 
 [![Gatsby](https://www.gatsbyjs.org/Gatsby-Logo.svg)](https://www.gatsbyjs.org)
 
@@ -61,7 +62,7 @@ brew install hugo
 
 ### Paso 2: Crea un nuevo sitio:
 ```bash
-hugo new site quickstart
+hugo new site blog.webartisan
 ```
 
 ### Paso 3: Inicializa el proyecto en git:
@@ -70,14 +71,21 @@ git init
 ```
 
 ### Paso 4: Agrega un tema:
-Los temas los podrás encontrar en [https://themes.gohugo.io/](https://themes.gohugo.io/). En este vídeo se eligió [Ezhil](https://themes.gohugo.io/ezhil/). El siguiente comando agregará un submodulo de git llamado ezhil en la carpeta themes.
+Los temas los podrás encontrar en [https://themes.gohugo.io/](https://themes.gohugo.io/). En este vídeo se eligió [Ezhil](https://themes.gohugo.io/ezhil/). El siguiente comando clonará un repositorio  de git llamado ezhil en la carpeta themes.
 ```bash
-git submodule add https://github.com/vividvilla/ezhil.git themes/ezhil
+git clone https://github.com/vividvilla/ezhil.git themes/ezhil
 ```
 
+En el vídeo lo hice con submodule pero me dio problemas al momento de agregar el proyecto a github. Así que recomiendo mejor este proceso.
+
 ### Paso 5: Personaliza la configuración del tema:
+La siguiente es la configuración que tiene el tema en el repositorio de github, puedes personalizarlo a tu gusto. 
+La propiedad baseURL la configuraremos más adelante cuando subamos el proyecto a now.sh. Mientras tanto puedes dejarla con el default.
+
 ```toml
-baseURL = "https://blog.webartisan.pw/"
+# Your now.sh domain. You can leave it with http://localhost:1313/
+# For local purposes
+baseURL = "http://localhost:1313/"
 languageCode = "es-ES"
 title = "WEBartisan"
 theme = "ezhil"
@@ -153,9 +161,9 @@ url = "https://twitter.com/WebArtisanPW"
 hugo new posts/my-first-post.md
 ```
 
-Este archivo se creará en la carpeta ./content/posts/my-first-post.md
+Este archivo se creará en la carpeta ```./content/posts/my-first-post.md```
 
-El contenido será parecido a esto:
+El contenido será parecido a esto, puedes copiar el siguiente texto para fines de prueba:
 
 ```md
 ---
@@ -166,6 +174,12 @@ slug: "2019/09/27/blog-oficial-webartisan"
 tags: ["hugo", "golang", "blog"]
 description: "Cómo se creó este blog usando https://gohugo.io/"
 ---
+
+Estas son las instrucciones para crear un blog como este:
+
+## Referencias
+[Página principal de Hugo](https://gohugo.io/)
+
 ```
 
 Abajo de esas cabeceras podrás usar la sintaxis de [Markdown](https://www.markdownguide.org/) y deberás configurar la propiedad "draft" a false para que tu artículo se vea en el listado de posts.
@@ -173,6 +187,245 @@ Abajo de esas cabeceras podrás usar la sintaxis de [Markdown](https://www.markd
 **¡Listo! has creado tu propio blog**
 
 ## Configurar un repositorio de github para now.sh
-*En edición... disculpen guys, tenía mucho sueño XD.*
+Necesitarán tener una cuenta creada en [now.sh](https://zeit.co/signup). Recomiendo que la creen conectándose a github.
 
-*En unas horas actualizaré este artículo*
+### Paso 1: Crea un repositorio en github
+![Crea un repositorio](https://s3.amazonaws.com/blog.webartisan/20190927blog-oficial-webartisan/01-create-github-account.png)
+
+![Repositorio creado](https://s3.amazonaws.com/blog.webartisan/20190927blog-oficial-webartisan/03-created-repo.png)
+
+### Paso 2: Clona el repositorio en tu local
+
+Primero copia la url de tu repositorio.
+![Clona el repositorio](https://s3.amazonaws.com/blog.webartisan/20190927blog-oficial-webartisan/04-copy-repo.png)
+
+La forma más fácil de inicializar el repositorio sería únicamente clonar el proyecto y copiar los archivos generados por hugo ahí dentro. El siguiente comando es la forma en que clonarías el proyecto, con tu propia url:
+
+```bash
+git clone git@github.com:tonirilix/blog.webartisan.git
+```
+
+*Pero en el vídeo no lo hicimos así, por lo que los siguientes son los pasos a seguir para conectar tu carpeta local al repositorio de github*
+
+Cuando generamos el proyecto con hugo, ejecutamos el comando ```git init```el cuál lo inicializó como un proyecto de git. Sin embargo lo hizo únicamente local, no está apuntando a ningún repositorio remoto.
+
+Para conectar el repositorio local con el repositorio remoto, ejecutamos el siguiente comando usando tu url:
+
+```bash
+git remote add origin git@github.com:tonirilix/blog.webartisan.git
+```
+
+Después necesitamos descargar las ramas que están configuradas en el repositorio remoto, en este caso es únicamente master. Así que ejecutamos:
+
+```bash
+git fetch origin
+```
+
+Y después necesitamos que nuestra rama local ```master``` se vincule a la rama master del repositorio remoto, así que ejecutamos:
+
+```bash
+git checkout master
+```
+
+Esto nos mandará un mensaje como este indicanto que ya está haciendo tracking de la rama remota:
+
+```bash
+blog.webartisan on  master [+?]
+➜ git checkout master
+A	.gitmodules
+A	themes/ezhil
+Branch 'master' set up to track remote branch 'master' from 'origin'.
+Already on 'master'
+```
+
+Ahora necesitamos agregar a la raiz del proyecto un archivo de nombre ```package.json``` en el que pondremos las intrucciones que now.sh necesita para poder correr nuestro proyecto.
+Básicamente las instrucciones de instalación indican a now.sh que tiene que descargar Hugo como dependencia, después extraerlo con permisos de ejecución y en las instrucciones de compilado le indican que debe ejecutar ./hugo. De esa forma aseguramos que cada que se haga un nuevo deploy nuestro proyecto se compile con la versión apropiada de Hugo. El contenido del archivo es el siguiente:
+
+```json
+{
+    "name": "blog.webartisan-test",
+    "version": "0.1",
+    "scripts": {
+        "install": "curl -L -O https://github.com/gohugoio/hugo/releases/download/v0.58.3/hugo_0.58.3_Linux-64bit.tar.gz && tar -xzf hugo_0.58.3_Linux-64bit.tar.gz",
+        "build": "./hugo"
+    }
+}
+```
+
+Por último necesitamos agregar un archivo .gitignore, para que github no haga tracking de los archivos compilados por hugo y tampoco de otros archivos de configuración.
+
+```.gitignore
+_site
+.sass-cache
+.DS_Store
+Gemfile.lock
+*.sublime-project
+*.sublime-workspace
+codekit-config.json
+node_modules
+_asset_bundler_cache
+.vscode
+public
+```
+
+Si ejecutamos ```git status``` deberíamos ver algo como esto:
+
+![git status](https://s3.amazonaws.com/blog.webartisan/20190927blog-oficial-webartisan/06-git-status.png)
+
+Ahora necesitamos agregar todos archivos nuevos al stage de git, pero debemos tener cuidado ya que el tema está agregado como un repositorio dentro de nuestro repositorio y, si lo subimos de esa forma now.sh no va a saber qué hacer con ese submódulo (de hecho cualquiera que descargue el proyecto).
+Entonces agreguemos primero la carpeta de themes de la siguiente forma para que git sepa que deseamos agregarla como directorio:
+
+```
+git add themes/
+```
+Una vez hecho esto agreguemos el resto de los archivos con:
+```
+git add .
+```
+
+Si por alguna razón no agregaste los temas como en el paso indicado, el warning que te arroja la consola te indica como remover themes nuevamente.
+```
+warning: adding embedded git repository: themes/ezhil
+hint: You've added another git repository inside your current repository.
+hint: Clones of the outer repository will not contain the contents of
+hint: the embedded repository and will not know how to obtain it.
+hint: If you meant to add a submodule, use:
+hint:
+hint: 	git submodule add <url> themes/ezhil
+hint:
+hint: If you added this path by mistake, you can remove it from the
+hint: index with:
+hint:
+hint: 	git rm --cached themes/ezhil
+hint:
+hint: See "git help submodule" for more information.
+```
+
+Ahora creamos el commit de los archivos a actualizar en nuestro repo:
+```bash
+git commit -m "Initial blog files"
+```
+![commited files](https://s3.amazonaws.com/blog.webartisan/20190927blog-oficial-webartisan/07-git-commit.png)
+
+Y subimos el commit al repositorio remoto:
+```bash
+git push
+```
+
+Y si todo salió bien, nuestros archivos ya deberían estar en el repositorio remoto:
+![remote repo](https://s3.amazonaws.com/blog.webartisan/20190927blog-oficial-webartisan/08-files-in-repo.png)
+
+## Configurando now.sh para escuchar nuestro repositorio
+Primero deberás crear una cuenta en [now.sh](https://zeit.co/signup). Te recomiendo que te conectes vía github para que sea más fácil conectarnos con nuestro repositorio. Una vez que crees tu cuenta, continua con los siguientes pasos:
+
+## Paso 1: Crea un nuevo proyecto, elige Github como fuente.
+![new project](https://s3.amazonaws.com/blog.webartisan/20190927blog-oficial-webartisan/09-now-sh.png)
+
+## Paso 2: 
+Aparecerá una pantalla para seleccionar el repositorio, en este caso la integración que tengo con github no es completa, así que debo agregar el nuevo repositorio. Click en "repository access settings". Si tienes la opción de que now.sh acceda a todos tus repositorios no tendrás que hacer este paso.
+
+![select repo](https://s3.amazonaws.com/blog.webartisan/20190927blog-oficial-webartisan/10-connect-repo.png)
+
+## Paso 3:
+En github selecciona el nuevo repositorio para que now.sh escuche cambios.
+![add repo to whitelist](https://s3.amazonaws.com/blog.webartisan/20190927blog-oficial-webartisan/11-add-new-repo.png)
+
+## Paso 4: 
+Selecciona el repositorio que now.sh quieres que conecte.
+![select repo in now.sh](https://s3.amazonaws.com/blog.webartisan/20190927blog-oficial-webartisan/12-connect-repo2.png)
+
+En mi cuenta de now.sh ya tenía un proyecto con el nombre blog.webartisan, así que me mandó este error y tuve que elegir aquí un nuevo nombre a ```blog.webartisan.test```:
+![fix error](https://s3.amazonaws.com/blog.webartisan/20190927blog-oficial-webartisan/13-rename-if-necessary.png)
+
+Una vez que hagas esto, now.sh se descargará los cambios de la rama master y comenzará la compilación.
+![a](https://s3.amazonaws.com/blog.webartisan/20190927blog-oficial-webartisan/14-deploy-starts.png)
+Podemos ver en la imagen anterior que hay un deploy que está en color rojo, eso es debido al submódulo subí mal a mi repositorio, pero una vez corregido el proceso terminó con éxito:
+![success](https://s3.amazonaws.com/blog.webartisan/20190927blog-oficial-webartisan/15-deploy-finishes.png)
+
+Podemos ver en el siguiente log el proceso de compilación, y en alguna parte se ve cuando hizo la descarga de las dependencias que definimos en el package.json y el proceso de compilación:
+```bash
+Installing build runtime...
+Build runtime installed: 668.375ms
+Looking up build cache...
+Installing dependencies...
+yarn install v1.17.3
+info No lockfile found.
+[1/4] Resolving packages...
+[2/4] Fetching packages...
+[3/4] Linking dependencies...
+[4/4] Building fresh packages...
+success Saved lockfile.
+$ curl -L -O https://github.com/gohugoio/hugo/releases/download/v0.58.3/hugo_0.58.3_Linux-64bit.tar.gz && tar -xzf hugo_0.58.3_Linux-64bit.tar.gz
+[...]
+Done in 1.79s.
+Running "yarn run build"
+yarn run v1.17.3
+$ ./hugo
+Building sites … 
+
+                   | EN  
++------------------+----+
+  Pages            | 13  
+  Paginator pages  |  0  
+  Non-page files   |  0  
+  Static files     |  4  
+  Processed images |  0  
+  Aliases          |  1  
+  Sitemaps         |  1  
+  Cleaned          
+|  0  
+
+Total in 10 ms
+Done in 0.08s.
+Build completed. Populating build cache...
+Build cache uploaded [305 B]: 450.947ms
+done
+```
+
+Sin embargo, si notamos en el preview, el sitio no se veía de forma correta:
+
+![missing baseUrl](https://s3.amazonaws.com/blog.webartisan/20190927blog-oficial-webartisan/16-missing-baseUrl.png)
+
+## Paso 5:
+Eso es debido a que debemos configurar nuestra baseUrl con la que now.sh nos define para el proyecto, en este caso es la siguiente:
+```toml
+baseURL = "https://blogwebartisantest.tonirilix.now.sh/"
+```
+
+Agregamos los cambios con ```git add config.toml```
+Creamos el commit ```git commit -m "Modify baseUrl"```
+Y subimos nuestros cambios nuevamente ```git push```
+
+Una ve hecho esto, podremos un nuevo release:
+
+![new deploy](https://s3.amazonaws.com/blog.webartisan/20190927blog-oficial-webartisan/17-new-deploy.png)
+
+El cual terminará en cuestión de segundos:
+
+![new deploy done](https://s3.amazonaws.com/blog.webartisan/20190927blog-oficial-webartisan/18-deploy2-done.png)
+
+Nuestro blog ahora debería verse como en localhost:
+
+![finish](https://s3.amazonaws.com/blog.webartisan/20190927blog-oficial-webartisan/19-site-ready.png)
+
+## Creando rama de desarrollo
+Considero importante que creen una rama de desarrollo para que hagan sus pruebas antes de mandar a producción.
+Con ```git checkout -b dev``` creamos una nueva rama
+
+Y después la subimos a nuestro repositorio ```git push -u origin dev```
+Una vez hecho esto, now.sh detectará la nueva rama y hará un nuevo deploy:
+![deploy dev](https://s3.amazonaws.com/blog.webartisan/20190927blog-oficial-webartisan/20-new-dev-branch.png)
+
+Si hacemos modificaciones en esta rama y las subimos al repositorio, github detectará que hay cambios que podrían ser mergeados a master:
+![changes](https://s3.amazonaws.com/blog.webartisan/20190927blog-oficial-webartisan/21-pull-request.png)
+
+Creemos un Pull Request y agreguemos una descripción. Vemos que el único cambio que hicimos fue el subtítulo:
+![PR](https://s3.amazonaws.com/blog.webartisan/20190927blog-oficial-webartisan/22-pr-description.png)
+
+Una vez que lo creemos el bot de now verificará los cambios. Ahora podemos darle merge hacia master para hacer un deploy a producción:
+![merge](https://s3.amazonaws.com/blog.webartisan/20190927blog-oficial-webartisan/23-pr-merge.png)
+
+Now detectará los cambios y ahora nuestra url de desarrollo estará alineada con la de producción:
+![prod](https://s3.amazonaws.com/blog.webartisan/20190927blog-oficial-webartisan/24-new-production-release.png)
+
+
