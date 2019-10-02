@@ -7,12 +7,13 @@ tags: ["hugo", "golang", "blog"]
 categories: []
 description: "Cómo se creó este blog usando https://gohugo.io/"
 ---
-
 Después del vídeo de [Preguntas y Respuestas 2.0](https://www.youtube.com/watch?v=_6_4zdzjvOc) noté que hacía falta un lugar en donde centralizar todas las preguntas y respuestas realizadas en el canal. Muchas de las preguntas se realizan más de una vez y, en más de una ocasión, ya han sido respondidas anteriormente.
+
+## Este post es una explicaión del siguiente vídeo:
+[![hugo](https://i9.ytimg.com/vi/LSG8Bt4jBHA/hqdefault.jpg?time=1570042935266&sqp=CLDn0-wF&rs=AOn4CLDwAE-5-N-u9kF7e6H_5owYC8YNLA)](https://www.youtube.com/watch?v=LSG8Bt4jBHA "Creando un blog en menos de 5 minutos con hugo")
 
 ## Principales herramientas
 Comparé las principales herramientas para crear contenido estático y al final consideré únicamente dos de ellas:
-
 
 [![Gatsby](https://www.gatsbyjs.org/Gatsby-Logo.svg)](https://www.gatsbyjs.org)
 
@@ -320,7 +321,28 @@ Primero deberás crear una cuenta en [now.sh](https://zeit.co/signup). Te recomi
 ## Paso 1: Crea un nuevo proyecto, elige Github como fuente.
 ![new project](https://s3.amazonaws.com/blog.webartisan/20190927blog-oficial-webartisan/09-now-sh.png)
 
-Selecc
+## Paso 2: 
+Aparecerá una pantalla para seleccionar el repositorio, en este caso la integración que tengo con github no es completa, así que debo agregar el nuevo repositorio. Click en "repository access settings". Si tienes la opción de que now.sh acceda a todos tus repositorios no tendrás que hacer este paso.
+
+![select repo](https://s3.amazonaws.com/blog.webartisan/20190927blog-oficial-webartisan/10-connect-repo.png)
+
+## Paso 3:
+En github selecciona el nuevo repositorio para que now.sh escuche cambios.
+![add repo to whitelist](https://s3.amazonaws.com/blog.webartisan/20190927blog-oficial-webartisan/11-add-new-repo.png)
+
+## Paso 4: 
+Selecciona el repositorio que now.sh quieres que conecte.
+![select repo in now.sh](https://s3.amazonaws.com/blog.webartisan/20190927blog-oficial-webartisan/12-connect-repo2.png)
+
+En mi cuenta de now.sh ya tenía un proyecto con el nombre blog.webartisan, así que me mandó este error y tuve que elegir aquí un nuevo nombre a ```blog.webartisan.test```:
+![fix error](https://s3.amazonaws.com/blog.webartisan/20190927blog-oficial-webartisan/13-rename-if-necessary.png)
+
+Una vez que hagas esto, now.sh se descargará los cambios de la rama master y comenzará la compilación.
+![a](https://s3.amazonaws.com/blog.webartisan/20190927blog-oficial-webartisan/14-deploy-starts.png)
+Podemos ver en la imagen anterior que hay un deploy que está en color rojo, eso es debido al submódulo subí mal a mi repositorio, pero una vez corregido el proceso terminó con éxito:
+![success](https://s3.amazonaws.com/blog.webartisan/20190927blog-oficial-webartisan/15-deploy-finishes.png)
+
+Podemos ver en el siguiente log el proceso de compilación, y en alguna parte se ve cuando hizo la descarga de las dependencias que definimos en el package.json y el proceso de compilación:
 ```bash
 Installing build runtime...
 Build runtime installed: 668.375ms
@@ -334,22 +356,7 @@ info No lockfile found.
 [4/4] Building fresh packages...
 success Saved lockfile.
 $ curl -L -O https://github.com/gohugoio/hugo/releases/download/v0.58.3/hugo_0.58.3_Linux-64bit.tar.gz && tar -xzf hugo_0.58.3_Linux-64bit.tar.gz
-  % Total
-    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   
-Spent    Left  Speed
-
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-
-  0     0    0     0    0 
-    0      0      0 --:--:-- --:--:-- --:--:--     0
-100   620    0   620    0     0   3147      0 --:--:-- --:--:-- --:--:--  3147
-
- 32 11.1M   32 3641k    0     0  3353k      0  0:00:03  0:00:01  0:00
-:02 3353k
-
-100 11.1M  100 11.1M 
-   0     0  7756k      0  0:00:01  0:00:01 --:--:-- 19.8M
+[...]
 Done in 1.79s.
 Running "yarn run build"
 yarn run v1.17.3
@@ -375,21 +382,50 @@ Build cache uploaded [305 B]: 450.947ms
 done
 ```
 
+Sin embargo, si notamos en el preview, el sitio no se veía de forma correta:
 
+![missing baseUrl](https://s3.amazonaws.com/blog.webartisan/20190927blog-oficial-webartisan/16-missing-baseUrl.png)
+
+## Paso 5:
+Eso es debido a que debemos configurar nuestra baseUrl con la que now.sh nos define para el proyecto, en este caso es la siguiente:
 ```toml
 baseURL = "https://blogwebartisantest.tonirilix.now.sh/"
 ```
 
+Agregamos los cambios con ```git add config.toml```
+Creamos el commit ```git commit -m "Modify baseUrl"```
+Y subimos nuestros cambios nuevamente ```git push```
 
-```
-git commit -m "Modify baseUrl"
-```
+Una ve hecho esto, podremos un nuevo release:
 
-```
-git checkout -b dev
-```
+![new deploy](https://s3.amazonaws.com/blog.webartisan/20190927blog-oficial-webartisan/17-new-deploy.png)
 
-```
-git push -u origin dev
-```
+El cual terminará en cuestión de segundos:
+
+![new deploy done](https://s3.amazonaws.com/blog.webartisan/20190927blog-oficial-webartisan/18-deploy2-done.png)
+
+Nuestro blog ahora debería verse como en localhost:
+
+![finish](https://s3.amazonaws.com/blog.webartisan/20190927blog-oficial-webartisan/19-site-ready.png)
+
+## Creando rama de desarrollo
+Considero importante que creen una rama de desarrollo para que hagan sus pruebas antes de mandar a producción.
+Con ```git checkout -b dev``` creamos una nueva rama
+
+Y después la subimos a nuestro repositorio ```git push -u origin dev```
+Una vez hecho esto, now.sh detectará la nueva rama y hará un nuevo deploy:
+![deploy dev](https://s3.amazonaws.com/blog.webartisan/20190927blog-oficial-webartisan/20-new-dev-branch.png)
+
+Si hacemos modificaciones en esta rama y las subimos al repositorio, github detectará que hay cambios que podrían ser mergeados a master:
+![changes](https://s3.amazonaws.com/blog.webartisan/20190927blog-oficial-webartisan/21-pull-request.png)
+
+Creemos un Pull Request y agreguemos una descripción. Vemos que el único cambio que hicimos fue el subtítulo:
+![PR](https://s3.amazonaws.com/blog.webartisan/20190927blog-oficial-webartisan/22-pr-description.png)
+
+Una vez que lo creemos el bot de now verificará los cambios. Ahora podemos darle merge hacia master para hacer un deploy a producción:
+![merge](https://s3.amazonaws.com/blog.webartisan/20190927blog-oficial-webartisan/23-pr-merge.png)
+
+Now detectará los cambios y ahora nuestra url de desarrollo estará alineada con la de producción:
+![prod](https://s3.amazonaws.com/blog.webartisan/20190927blog-oficial-webartisan/24-new-production-release.png)
+
 
