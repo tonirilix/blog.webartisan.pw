@@ -10,7 +10,7 @@ description: "Cómo se creó este blog usando https://gohugo.io/"
 Después del vídeo de [Preguntas y Respuestas 2.0](https://www.youtube.com/watch?v=_6_4zdzjvOc) noté que hacía falta un lugar en donde centralizar todas las preguntas y respuestas realizadas en el canal. Muchas de las preguntas se realizan más de una vez y, en más de una ocasión, ya han sido respondidas anteriormente.
 
 ## Este post es una explicaión del siguiente vídeo:
-[![hugo](https://i9.ytimg.com/vi/LSG8Bt4jBHA/hqdefault.jpg?time=1570042935266&sqp=CLDn0-wF&rs=AOn4CLDwAE-5-N-u9kF7e6H_5owYC8YNLA)](https://www.youtube.com/watch?v=LSG8Bt4jBHA "Creando un blog en menos de 5 minutos con hugo")
+[![hugo](https://s3.amazonaws.com/blog.webartisan/20190927blog-oficial-webartisan/blog1.jpg)](https://www.youtube.com/watch?v=LSG8Bt4jBHA "Creando un blog en menos de 5 minutos con hugo")
 
 ## Principales herramientas
 Comparé las principales herramientas para crear contenido estático y al final consideré únicamente dos de ellas:
