@@ -129,9 +129,9 @@ Los tres primeros elementos son todos brackets de apertura, por lo que la pila c
 
 | Elemento  | Posición |
 | --------- | -------- |
-| } | 2 |
-| ) | 1 |
-| ] | 0 |
+|     }     |     2    |
+|     )     |     1    |
+|     ]     |     0    |
 
 Recordemos que una pila funciona "El último en entrar es el primero en salir" (_LIFO_ por sus siglas en inglés). Por lo que para el cuarto el ciclo entraría en la parte 4 del código:
 
@@ -142,17 +142,17 @@ Recordemos que una pila funciona "El último en entrar es el primero en salir" (
 
 Donde 
 
-| Expresión | Valor |
-| --------- | ----- |
-| c | } |
-| stack[stack.length - 1] | } |
+| Expresión               | Valor |
+| ----------------------- | ----- |
+|            c            |   }   |
+| stack[stack.length - 1] |   }   |
 
 Entonces `matchesTop` sería `true` y sacaríamos el último elemento de la pila, así: 
 
 | Elemento  | Posición |
 | --------- | -------- |
-| ) | 1 |
-| ] | 0 |
+|     )     |     1    |
+|     ]     |     0    |
 
 Para el quinto el ciclo entraría en la parte 4 del código:
 
@@ -169,7 +169,7 @@ Entonces `matchesTop` sería `true` y sacaríamos el último elemento de la pila
 
 | Elemento  | Posición |
 | --------- | -------- |
-| ] | 0 |
+|     ]     |     0    |
 
 Para el quinto y último el ciclo entraría en la parte 4 del código:
 
