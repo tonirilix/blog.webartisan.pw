@@ -148,6 +148,7 @@ Donde
 | stack[stack.length - 1] | } |
 
 Entonces `matchesTop` sería `true` y sacaríamos el último elemento de la pila, así: 
+
 | Elemento  | Posición |
 | --------- | -------- |
 | ) | 1 |
@@ -165,6 +166,7 @@ Donde
 | stack[stack.length - 1] | ) |
 
 Entonces `matchesTop` sería `true` y sacaríamos el último elemento de la pila, así: 
+
 | Elemento  | Posición |
 | --------- | -------- |
 | ] | 0 |
