@@ -1,4 +1,4 @@
-baseURL = "https://blog.webartisan.pw/"
+baseURL = "/"
 defaultContentLanguage = "es"
 title = "WEBartisan"
 theme = "terminal"
