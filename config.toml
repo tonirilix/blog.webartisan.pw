@@ -1,12 +1,7 @@
-baseURL = "https://blog.webartisan.pw/"
-languageCode = "es-mx"
+baseURL = "/"
+defaultContentLanguage = "es"
 title = "WEBartisan"
-theme = "ezhil"
-
-# Enable syntax highlighting.
-pygmentsstyle = "vs"
-pygmentscodefences = true
-pygmentscodefencesguesssyntax = true
+theme = "terminal"
 
 # Your Google analytics code.
 googleAnalytics = "UA-41662036-4"
@@ -14,43 +9,62 @@ googleAnalytics = "UA-41662036-4"
 disqusShortname = "WebArtisanPW"
 
 # Number of posts to show in recent posts list (Optional). Defaults to 10.
-paginate = 20
+paginate = 5
 
 [params]
-    # Blog subtitle which appears below blog title. Supports markdown.
+    # dir name of your blog content (default is `content/posts`)
+    contentTypeName = "posts"
+
+    # ["orange", "blue", "red", "green", "pink"]
+    themeColor = "orange"
+
+    # if you set this to 0, only submenu trigger will be visible
+    showMenuItems = 2
+
+    # show selector to switch language
+    showLanguageSelector = false
+
+    # set theme to full screen width
+    fullWidthTheme = false
+
+    # center theme with default width
+    centerTheme = true
+
+    # set a custom favicon (default is a `themeColor` square)
+    # favicon = "favicon.ico"
+
+    # set all headings to their default size (depending on browser settings)
+    # it's set to `true` by default
+    # oneHeadingSize = false
+
+[languages]
+  [languages.es]
+    languageName = "Español"
+    title = "WEBartisan"
     subtitle = "Building the web!!!"
-    # Content types which are included in home page recent posts list.
-    mainSections = ["posts"]
-    # Content types which are excludes Disqus comments.
-    disableDisqusTypes = ["page"]
-    # If social media links are enabled then enable this to fetch icons from CDN instead of hosted on your site.
-    featherIconsCDN = true
+    keywords = "tech blog, blog de tecnologia, webartisan, web artisan"
+    copyright = ""
+    menuMore = "Mostrar más"
+    readMore = "Leer más"
+    readOtherPosts = "Leer otros posts"
 
-# Main menu which appears below site header.
-[[menu.main]]
-name = "Inicio"
-url = "/"
-weight = 1
+    [languages.es.params.logo]
+      logoText = "WEBartisan"
+      logoHomeLink = "/"
 
-[[menu.main]]
-name = "Posts"
-url = "/posts"
-weight = 2
-
-[[menu.main]]
-name = "About"
-url = "/about"
-weight = 3
-
-[[menu.main]]
-name = "FAQ"
-url = "/faq"
-weight = 4
-
-[[menu.main]]
-name = "Tags"
-url = "/tags"
-weight = 5
+    [languages.es.menu]
+      [[languages.es.menu.main]]
+        identifier = "posts"
+        name = "Posts"
+        url = "/posts"
+      [[languages.es.menu.main]]
+        identifier = "about"
+        name = "About"
+        url = "/about"
+      [[languages.es.menu.main]]
+        identifier = "faq"
+        name = "FAQ"
+        url = "/faq"
 
 # Social media links which shows up on site header.
 # Uses feather icons for icons. You can [search icon names from here](https://feathericons.com/).
